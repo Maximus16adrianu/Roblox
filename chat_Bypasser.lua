@@ -6,6 +6,26 @@ local Convert = Instance.new("TextButton")
 local InsultsFrame = Instance.new("Frame")
 local UIGridLayout = Instance.new("UIGridLayout")
 local Title = Instance.new("TextLabel")
+local CloseButton = Instance.new("TextButton") -- Added Close Button
+
+-- Add Close Button
+CloseButton.Parent = MainFrame
+CloseButton.BackgroundColor3 = Color3.fromRGB(255, 80, 80)
+CloseButton.Position = UDim2.new(0.93, 0, 0.02, 0)
+CloseButton.Size = UDim2.new(0.05, 0, 0.05, 0)
+CloseButton.Font = Enum.Font.GothamBold
+CloseButton.Text = "X"
+CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseButton.TextSize = 14
+CloseButton.BorderSizePixel = 0
+
+local CloseButtonCorner = Instance.new("UICorner")
+CloseButtonCorner.CornerRadius = UDim.new(0, 4)
+CloseButtonCorner.Parent = CloseButton
+
+CloseButton.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
 
 -- Updated Insults with Categories
 local insults = {
@@ -128,7 +148,7 @@ Title.BackgroundTransparency = 1
 Title.Position = UDim2.new(0, 0, 0.02, 0)
 Title.Size = UDim2.new(1, 0, 0.1, 0)
 Title.Font = Enum.Font.GothamBold
-Title.Text = "Text Converter"
+Title.Text = "Chat Bypasser"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.TextSize = 24
 
