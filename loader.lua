@@ -239,7 +239,7 @@ SubmitButton.MouseButton1Click:Connect(function()
         end)
 
         print("Executing additional script...")
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Maximus16adrianu/Roblox/refs/heads/main/Main.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Maximus16adrianu/Roblox/refs/heads/main/script_Hub.lua"))()
     end
 end)
 
