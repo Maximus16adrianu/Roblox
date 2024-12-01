@@ -19,7 +19,7 @@ local UICorner5 = Instance.new("UICorner")
 -- Check for existing instances
 local existingInstances = game.CoreGui:FindFirstChild("CerialLoaderScreenGui")
 if existingInstances then
-    game.Players.LocalPlayer:Kick("Only open the script once")
+    game.Players.LocalPlayer:Kick("Only execute the script once")
     return
 end
 
