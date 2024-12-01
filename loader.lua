@@ -16,6 +16,15 @@ local UICorner3 = Instance.new("UICorner")
 local UICorner4 = Instance.new("UICorner")
 local UICorner5 = Instance.new("UICorner")
 
+-- Check for existing instances
+local existingInstances = game.CoreGui:FindFirstChild("CerialLoaderScreenGui")
+if existingInstances then
+    game.Players.LocalPlayer:Kick("Only open the script once")
+    return
+end
+
+-- Rename ScreenGui to prevent duplicate checks
+ScreenGui.Name = "CerialLoaderScreenGui"
 ScreenGui.Parent = game.CoreGui
 
 -- Frame Settings (made taller to accommodate new elements)
