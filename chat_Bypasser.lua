@@ -29,6 +29,7 @@ end)
 
 -- Updated Insults with Categories
 local insults = {
+    
     -- General Insults
     {"You are the human embodiment of a mistake.", "General"},
     {"Your existence is a tragedy, not a story.", "General"},
@@ -282,25 +283,35 @@ local function simulateKeyPress(key)
     game:GetService("VirtualInputManager"):SendKeyEvent(false, key, false, game)
 end
 
-local function sendConvertedText(text)
+function sendConvertedText(text)
+    -- Check if the text contains blacklisted words
     local blockedWord = containsBlacklistedWord(text)
     if blockedWord then
+        -- Show a popup for the blocked word and return early
         showPopup(blockedWord)
         return
     end
-    
+
+    -- Convert the text as needed
     local convertedText = convertText(text)
-    
-    simulateKeyPress(Enum.KeyCode.Slash)
-    wait(0)
-    
-    for _, char in pairs(convertedText:split("")) do
-        game:GetService("VirtualInputManager"):SendTextInputCharacterEvent(char, nil)
-    end
-    wait(0)
-    
-    simulateKeyPress(Enum.KeyCode.Return)
+
+    -- Send the message using the new chat function logic
+    chat(convertedText)
 end
+
+function chat(message)
+    local TextChatService = game:GetService("TextChatService")
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+    -- Check if the TextChatService and RBXGeneral channel exist
+    if TextChatService and TextChatService.TextChannels:FindFirstChild("RBXGeneral") then
+        TextChatService.TextChannels.RBXGeneral:SendAsync(message)
+    -- Fallback to the legacy chat system if TextChatService is not available
+    elseif ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents") then
+        ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+    end
+end
+
 
 -- Function to populate insults based on category
 local function populateInsults(category)
