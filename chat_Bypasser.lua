@@ -30,9 +30,9 @@ end)
 -- Updated Insults with Categories
 local insults = {
     -- General Insults
-    {"'You’re the human embodiment of a mistake.'", "General"},
+    {"You are the human embodiment of a mistake.", "General"},
     {"Your existence is a tragedy, not a story.", "General"},
-    {"You’re a waste of space and oxygen.", "General"},
+    {"You are a waste of space and oxygen.", "General"},
     {"4.", "General"},
     {"5.", "General"},
     {"6.", "General"},
@@ -243,7 +243,7 @@ local charMap = {
     ["a"] = "ａ",   
     ["b"] = "ƀ",     
     ["c"] = "ꞓ",    
-    ["d"] = "ꝱ",     
+    ["d"] = "ď",     
     ["e"] = "е",    
     ["f"] = "ғ",     
     ["g"] = "ɡ",    
@@ -261,10 +261,10 @@ local charMap = {
     ["s"] = "ꜱ",    
     ["t"] = "t",    
     ["u"] = "ц",    
-    ["v"] = "ᵥ",    
+    ["v"] = "ѷ",    
     ["w"] = "ꝡ",     
     ["x"] = "ꭓ",     
-    ["y"] = "ᵧ",
+    ["y"] = "ɏ",
     ["z"] = "z"    
 }
 
