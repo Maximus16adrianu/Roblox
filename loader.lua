@@ -62,7 +62,7 @@ WorkingLabel.TextSize = 16
 
 -- Executor List (New)
 ExecutorList.Parent = Frame
-ExecutorList.Text = "JJSploit | Wave"
+ExecutorList.Text = "Solara | JJSploit | Wave"
 ExecutorList.Size = UDim2.new(0, 200, 0, 40)
 ExecutorList.Position = UDim2.new(0.5, -100, 0.2, 0)
 ExecutorList.BackgroundTransparency = 1
@@ -82,7 +82,7 @@ NotWorkingLabel.TextSize = 16
 
 -- Not Working List (New)
 NotWorkingList.Parent = Frame
-NotWorkingList.Text = "Solara"
+NotWorkingList.Text = "-"
 NotWorkingList.Size = UDim2.new(0, 200, 0, 30)
 NotWorkingList.Position = UDim2.new(0.5, -100, 0.35, 0)
 NotWorkingList.BackgroundTransparency = 1
