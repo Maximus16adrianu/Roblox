@@ -277,10 +277,28 @@ local function convertText(text)
     return converted
 end
 
-local function simulateKeyPress(key)
-    game:GetService("VirtualInputManager"):SendKeyEvent(true, key, false, game)
-    wait()
-    game:GetService("VirtualInputManager"):SendKeyEvent(false, key, false, game)
+local function randomsmt(msg)
+    local Players = game:GetService("Players")
+    local LocalPlayer = Players.LocalPlayer
+    local TextChatService = game:GetService("TextChatService")
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local chat = TextChatService.ChatInputBarConfiguration.TargetTextChannel
+
+    local filteredMessage = game:GetService("Chat"):FilterStringForBroadcast(msg, LocalPlayer)
+    local tagged = filteredMessage ~= msg
+
+    if tagged then
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Message Filtered", 
+            Text = "Your message was blocked"
+        })
+    else
+        if TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService then
+            ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents").SayMessageRequest:FireServer(msg, "All")
+        else
+            chat:SendAsync(msg)
+        end
+    end
 end
 
 function sendConvertedText(text)
@@ -296,22 +314,13 @@ function sendConvertedText(text)
     local convertedText = convertText(text)
 
     -- Send the message using the new chat function logic
-    chat(convertedText)
+    randomsmt(convertedText)
 end
 
 function chat(message)
-    local TextChatService = game:GetService("TextChatService")
-    local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
-    -- Check if the TextChatService and RBXGeneral channel exist
-    if TextChatService and TextChatService.TextChannels:FindFirstChild("RBXGeneral") then
-        TextChatService.TextChannels.RBXGeneral:SendAsync(message)
-    -- Fallback to the legacy chat system if TextChatService is not available
-    elseif ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents") then
-        ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
-    end
+    -- This function is now deprecated, using randomsmt instead
+    randomsmt(message)
 end
-
 
 -- Function to populate insults based on category
 local function populateInsults(category)
@@ -321,7 +330,7 @@ local function populateInsults(category)
             child:Destroy()
         end
     end
-    
+
     -- Add insults for the selected category
     for _, insult in ipairs(insults) do
         if insult[2] == category then
@@ -334,11 +343,11 @@ local function populateInsults(category)
             button.TextColor3 = Color3.fromRGB(255, 255, 255)
             button.TextSize = 12
             button.TextWrapped = true
-            
+
             local UICorner5 = Instance.new("UICorner")
             UICorner5.CornerRadius = UDim.new(0, 6)
             UICorner5.Parent = button
-            
+
             button.MouseButton1Click:Connect(function()
                 sendConvertedText(insult[1])
             end)
