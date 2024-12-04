@@ -6,7 +6,7 @@ local Convert = Instance.new("TextButton")
 local InsultsFrame = Instance.new("Frame")
 local UIGridLayout = Instance.new("UIGridLayout")
 local Title = Instance.new("TextLabel")
-local CloseButton = Instance.new("TextButton") -- Added Close Button
+local CloseButton = Instance.new("TextButton")
 
 -- Add Close Button
 CloseButton.Parent = MainFrame
@@ -150,18 +150,26 @@ Title.Position = UDim2.new(0, 0, 0.02, 0)
 Title.Size = UDim2.new(1, 0, 0.1, 0)
 Title.Font = Enum.Font.GothamBold
 Title.Text = "Chat Bypasser"
-Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-Title.TextSize = 24
+Title.TextColor3 = Color3.fromRGB(230, 230, 250)  -- Slightly softer white for better readability
+Title.TextSize = 28  -- Increased size for more prominence
+Title.TextStrokeTransparency = 0.7  -- Optional: adds a subtle text outline for depth
 
--- Tab Frame
+-- TabFrame with gradient background
 TabFrame.Parent = MainFrame
-TabFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 55)
+TabFrame.BackgroundColor3 = Color3.fromRGB(65, 65, 75)
 TabFrame.Position = UDim2.new(0.05, 0, 0.1, 0)
 TabFrame.Size = UDim2.new(0.9, 0, 0.07, 0)
 TabFrame.BorderSizePixel = 0
 
+local TabGradient = Instance.new("UIGradient")
+TabGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(75, 75, 85)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(65, 65, 75))
+}
+TabGradient.Parent = TabFrame
+
 local TabCorner = Instance.new("UICorner")
-TabCorner.CornerRadius = UDim.new(0, 8)
+TabCorner.CornerRadius = UDim.new(0, 12)
 TabCorner.Parent = TabFrame
 
 local TabLayout = Instance.new("UIListLayout")
@@ -169,32 +177,77 @@ TabLayout.Parent = TabFrame
 TabLayout.FillDirection = Enum.FillDirection.Horizontal
 TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
 TabLayout.Padding = UDim.new(0.02, 0)
+TabLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 
--- Function to create tabs
+-- Enhanced tab creation function
 local function createTab(name)
     local tab = Instance.new("TextButton")
     tab.Parent = TabFrame
-    tab.BackgroundColor3 = Color3.fromRGB(65, 65, 85)
-    tab.Size = UDim2.new(0.2, 0, 1, 0)
-    tab.Font = Enum.Font.Gotham
+    tab.BackgroundColor3 = Color3.fromRGB(85, 85, 105)  -- Brighter base color
+    tab.Size = UDim2.new(0.18, 0, 0.9, 0)
+    tab.Position = UDim2.new(0, 0, 0.05, 0)
+    tab.Font = Enum.Font.GothamBold  -- Changed to Bold for better visibility
     tab.Text = name
-    tab.TextColor3 = Color3.fromRGB(255, 255, 255)
-    tab.TextSize = 14
+    tab.TextColor3 = Color3.fromRGB(255, 255, 255)  -- Pure white text
+    tab.TextSize = 15  -- Slightly larger text
     tab.BorderSizePixel = 0
+    tab.AutoButtonColor = false
     
     local TabButtonCorner = Instance.new("UICorner")
     TabButtonCorner.CornerRadius = UDim.new(0, 8)
     TabButtonCorner.Parent = tab
     
+    local TabGradient = Instance.new("UIGradient")
+    TabGradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(95, 95, 115)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(85, 85, 105))
+    }
+    TabGradient.Parent = tab
+    
+    -- Enhanced hover effect
+    tab.MouseEnter:Connect(function()
+        game:GetService("TweenService"):Create(tab, TweenInfo.new(0.2), {
+            BackgroundColor3 = Color3.fromRGB(105, 105, 135),  -- More noticeable hover color
+            TextColor3 = Color3.fromRGB(200, 230, 255)  -- Slight blue tint on hover
+        }):Play()
+    end)
+    
+    tab.MouseLeave:Connect(function()
+        game:GetService("TweenService"):Create(tab, TweenInfo.new(0.2), {
+            BackgroundColor3 = Color3.fromRGB(85, 85, 105),
+            TextColor3 = Color3.fromRGB(255, 255, 255)
+        }):Play()
+    end)
+    
+    -- Enhanced click effect
+    tab.MouseButton1Click:Connect(function()
+        -- Size shrink effect
+        local clickEffect = game:GetService("TweenService"):Create(tab, TweenInfo.new(0.1), {
+            Size = UDim2.new(0.17, 0, 0.8, 0),
+            BackgroundColor3 = Color3.fromRGB(115, 115, 145),  -- Brighter color on click
+            TextColor3 = Color3.fromRGB(180, 220, 255)  -- Different text color on click
+        })
+        clickEffect:Play()
+        clickEffect.Completed:Wait()
+        
+        -- Return to original state
+        game:GetService("TweenService"):Create(tab, TweenInfo.new(0.1), {
+            Size = UDim2.new(0.18, 0, 0.9, 0),
+            BackgroundColor3 = Color3.fromRGB(85, 85, 105),
+            TextColor3 = Color3.fromRGB(255, 255, 255)
+        }):Play()
+    end)
+    
     return tab
 end
 
--- Create tabs
+-- Create tabs with enhanced styling
 local MainTab = createTab("Main")
 local RacismTab = createTab("Racism")
-local HomophobicTab = createTab("Homophobic")
+local HomophobicTab = createTab("Anti-LGBT")
 local SexTab = createTab("Sex")
 local OtherTab = createTab("Other")
+
 
 Input.Parent = MainFrame
 Input.BackgroundColor3 = Color3.fromRGB(45, 45, 55)
@@ -212,7 +265,7 @@ UICorner2.CornerRadius = UDim.new(0, 8)
 UICorner2.Parent = Input
 
 Convert.Parent = MainFrame
-Convert.BackgroundColor3 = Color3.fromRGB(65, 105, 225)
+Convert.BackgroundColor3 = Color3.new(0.152941, 0.207843, 0.368627)
 Convert.Position = UDim2.new(0.25, 0, 0.37, 0)
 Convert.Size = UDim2.new(0.5, 0, 0.1, 0)
 Convert.Font = Enum.Font.GothamBold
