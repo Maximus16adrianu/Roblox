@@ -109,7 +109,7 @@ local function showPopup(word)
     popupText.Position = UDim2.new(0, 0, 0, 0)
     popupText.Size = UDim2.new(1, 0, 1, 0)
     popupText.Font = Enum.Font.GothamBold
-    popupText.Text = "This doesn't bypass: " .. word
+    popupText.Text = "Flagged: " .. word
     popupText.TextColor3 = Color3.fromRGB(255, 255, 255)
     popupText.TextSize = 16
     
@@ -341,10 +341,7 @@ local function randomsmt(msg)
     local tagged = filteredMessage ~= msg
 
     if tagged then
-        game:GetService("StarterGui"):SetCore("SendNotification", {
-            Title = "Message Filtered", 
-            Text = "Your message was blocked"
-        })
+            showPopup("Message was blocked")
     else
         if TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService then
             ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents").SayMessageRequest:FireServer(msg, "All")
@@ -445,7 +442,7 @@ end
 task.wait(5)
 
 local ACL_LoadTime = tick()
-local NotificationTitle = "Anthony's ACL"
+local NotificationTitle = "Custom ACL"
 
 local OldCoreTypeSettings = {}
 local WhitelistedCoreTypes = {
@@ -485,7 +482,7 @@ local PlayerGui = Player:FindFirstChildWhichIsA("PlayerGui") do
 end
 
 if getgenv().AntiChatLogger then
-    return Notify(NotificationTitle, "Anti Chat & Screenshot Logger already loaded!", 15)
+    return Notify(NotificationTitle, "ACL is already loaded", 15)
 else
     getgenv().AntiChatLogger = true
 end
