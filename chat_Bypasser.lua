@@ -85,7 +85,11 @@ local insults = {
 
 -- Blacklisted words
 local blacklistedWords = {
-    "lmao"
+    "lmao..",
+    "you are so fucking..",
+    "#1 nigger..",
+    "69..",
+    "i hate.."
     -- Add more words here
 }
 
@@ -116,13 +120,99 @@ local function showPopup(word)
     game:GetService("Debris"):AddItem(popup, 2)
 end
 
--- Function to check for blacklisted words
-local function containsBlacklistedWord(text)
-    for _, word in ipairs(blacklistedWords) do
-        if string.find(string.lower(text), string.lower(word)) then
-            return word
+-- Function to tokenize text into words
+local function tokenize(text)
+    local words = {}
+    for word in string.gmatch(string.lower(text), "%S+") do
+        table.insert(words, word)
+    end
+    return words
+end
+
+-- Function to calculate similarity between two strings
+local function stringSimilarity(str1, str2)
+    str1, str2 = string.lower(str1), string.lower(str2)
+    
+    -- Handle letter substitutions (l3tt3r => letter)
+    local substitutions = {
+        ['0'] = 'o', ['1'] = 'i', ['3'] = 'e', ['4'] = 'a',
+        ['5'] = 's', ['7'] = 't', ['@'] = 'a', ['$'] = 's'
+    }
+    
+    for k, v in pairs(substitutions) do
+        str1 = string.gsub(str1, k, v)
+        str2 = string.gsub(str2, k, v)
+    end
+    
+    -- Remove spaces and special characters for comparison
+    str1 = string.gsub(str1, "[%s%p]", "")
+    str2 = string.gsub(str2, "[%s%p]", "")
+    
+    if #str1 == 0 or #str2 == 0 then return 0 end
+    
+    -- Calculate Levenshtein distance
+    local matrix = {}
+    for i = 0, #str1 do
+        matrix[i] = {[0] = i}
+    end
+    for j = 0, #str2 do
+        matrix[0][j] = j
+    end
+    
+    for i = 1, #str1 do
+        for j = 1, #str2 do
+            local cost = (string.sub(str1, i, i) == string.sub(str2, j, j)) and 0 or 1
+            matrix[i][j] = math.min(
+                matrix[i-1][j] + 1,
+                matrix[i][j-1] + 1,
+                matrix[i-1][j-1] + cost
+            )
         end
     end
+    
+    -- Return similarity score (0 to 1)
+    return 1 - (matrix[#str1][#str2] / math.max(#str1, #str2))
+end
+
+-- Function to check for blacklisted phrases intelligently
+local function containsBlacklistedWord(text)
+    text = string.lower(text)
+    local words = tokenize(text)
+    
+    -- Check for exact matches first
+    for _, blockedPhrase in ipairs(blacklistedWords) do
+        if string.find(text, string.lower(blockedPhrase)) then
+            return blockedPhrase
+        end
+    end
+    
+    -- Check for phrase similarity
+    for _, blockedPhrase in ipairs(blacklistedWords) do
+        local blockedWords = tokenize(blockedPhrase)
+        
+        -- Skip if the text has fewer words than the blocked phrase
+        if #words >= #blockedWords then
+            -- Check each possible sequence of words in the text
+            for i = 1, #words - #blockedWords + 1 do
+                local textSegment = table.concat({table.unpack(words, i, i + #blockedWords - 1)}, " ")
+                
+                -- Compare similarity
+                if stringSimilarity(textSegment, blockedPhrase) > 0.8 then
+                    return blockedPhrase
+                end
+            end
+        end
+    end
+    
+    -- Check for intentional letter spacing or substitutions
+    local condensedText = string.gsub(text, "[%s%p]", "")
+    for _, blockedPhrase in ipairs(blacklistedWords) do
+        local condensedPhrase = string.gsub(string.lower(blockedPhrase), "[%s%p]", "")
+        if stringSimilarity(condensedText, condensedPhrase) > 0.8 then
+            return blockedPhrase
+        end
+    end
+    
     return nil
 end
 
