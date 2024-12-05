@@ -143,6 +143,11 @@ CreateScriptButton("Chat bypasser", "Loads Cerials Chat Bypasser", [[
     -- Your ESP script here
 ]])
 
+CreateScriptButton("Fly", "Loads Cerials Fly GUI", [[
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Maximus16adrianu/Roblox/refs/heads/main/basic_Fly.lua"))()
+    -- Your ESP script here
+]])
+
 -- Drag Functionality
 local dragging
 local dragInput
