@@ -85,39 +85,81 @@ local insults = {
 
 -- Blacklisted words
 local blacklistedWords = {
-    "lmao..",
-    "you are so fucking..",
-    "#1 nigger..",
-    "69..",
-    "i hate.."
-    -- Add more words here
+    "lmao",
+    "you are so fucking",
+    "#1 nigger",
+    "i hate",
+    "rape that",
+    "spread",
+    "let me see your butt",
+    "let me see your boob",
+    "let me see your tit",
+    "let me see your as",
+    "let me see your pan",
+    "show",
+    "can we",
+    "hail",
+    "hitle",
+    "69",
+    "burn all nig",
+    "kys retard",
+    "i think i",
 }
 
 -- Function to create popup
-local function showPopup(word)
+local function showPopup(word, reasonForNotBypassing)
     local popup = Instance.new("Frame")
     popup.Name = "Popup"
     popup.Parent = ScreenGui
     popup.BackgroundColor3 = Color3.fromRGB(255, 80, 80)
     popup.Position = UDim2.new(0.5, -150, 0.8, 0)
-    popup.Size = UDim2.new(0, 300, 0, 60)
+    popup.Size = UDim2.new(0, 300, 0, 100)  -- Increased height to accommodate 3 lines
     popup.BorderSizePixel = 0
     
     local UICornerPopup = Instance.new("UICorner")
     UICornerPopup.CornerRadius = UDim.new(0, 8)
     UICornerPopup.Parent = popup
     
-    local popupText = Instance.new("TextLabel")
-    popupText.Parent = popup
-    popupText.BackgroundTransparency = 1
-    popupText.Position = UDim2.new(0, 0, 0, 0)
-    popupText.Size = UDim2.new(1, 0, 1, 0)
-    popupText.Font = Enum.Font.GothamBold
-    popupText.Text = "Flagged: " .. word
-    popupText.TextColor3 = Color3.fromRGB(255, 255, 255)
-    popupText.TextSize = 16
+    -- Reason Text (Flagged:)
+    local reasonText = Instance.new("TextLabel")
+    reasonText.Parent = popup
+    reasonText.BackgroundTransparency = 1
+    reasonText.Position = UDim2.new(0, 0, 0, 0)
+    reasonText.Size = UDim2.new(1, 0, 0.33, 0)  -- One third of the height
+    reasonText.Font = Enum.Font.GothamBold
+    reasonText.Text = "Flagged:"
+    reasonText.TextColor3 = Color3.fromRGB(255, 255, 255)
+    reasonText.TextSize = 16
+    reasonText.TextXAlignment = Enum.TextXAlignment.Center
+    reasonText.TextYAlignment = Enum.TextYAlignment.Center
     
-    game:GetService("Debris"):AddItem(popup, 2)
+    -- Word Text
+    local wordText = Instance.new("TextLabel")
+    wordText.Parent = popup
+    wordText.BackgroundTransparency = 1
+    wordText.Position = UDim2.new(0, 0, 0.33, 0)  -- Positioned below the reasonText
+    wordText.Size = UDim2.new(1, 0, 0.33, 0)  -- One third of the height
+    wordText.Font = Enum.Font.GothamBold
+    wordText.Text = word
+    wordText.TextColor3 = Color3.fromRGB(255, 255, 255)
+    wordText.TextSize = 16
+    wordText.TextXAlignment = Enum.TextXAlignment.Center
+    wordText.TextYAlignment = Enum.TextYAlignment.Center
+    
+    -- Reason for not bypassing
+    local reasonForNotBypassingText = Instance.new("TextLabel")
+    reasonForNotBypassingText.Parent = popup
+    reasonForNotBypassingText.BackgroundTransparency = 1
+    reasonForNotBypassingText.Position = UDim2.new(0, 0, 0.66, 0)  -- Positioned below the wordText
+    reasonForNotBypassingText.Size = UDim2.new(1, 0, 0.33, 0)  -- One third of the height
+    reasonForNotBypassingText.Font = Enum.Font.Gotham
+    reasonForNotBypassingText.Text = reasonForNotBypassing or "[BETA] Word blocked by filter."
+    reasonForNotBypassingText.TextColor3 = Color3.fromRGB(255, 255, 255)
+    reasonForNotBypassingText.TextSize = 14
+    reasonForNotBypassingText.TextXAlignment = Enum.TextXAlignment.Center
+    reasonForNotBypassingText.TextYAlignment = Enum.TextYAlignment.Center
+    
+    game:GetService("Debris"):AddItem(popup, 4)
 end
 
 -- Function to tokenize text into words
@@ -431,7 +473,7 @@ local function randomsmt(msg)
     local tagged = filteredMessage ~= msg
 
     if tagged then
-            showPopup("Message was blocked")
+            showPopup(msg, "[BETA] Anti tagging")
     else
         if TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService then
             ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents").SayMessageRequest:FireServer(msg, "All")
