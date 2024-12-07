@@ -27,61 +27,58 @@ CloseButton.MouseButton1Click:Connect(function()
     ScreenGui:Destroy()
 end)
 
--- Updated Insults with Categories
 local insults = {
     
     -- General Insults
-    {"You are the human embodiment of a mistake.", "General"},
-    {"Your existence is a tragedy, not a story.", "General"},
-    {"You are a waste of space and oxygen.", "General"},
-    {"4.", "General"},
-    {"5.", "General"},
-    {"6.", "General"},
-    {"7.", "General"},
-    {"8.", "General"},
+    {"Coming soon, only manual bypassing rn", "General"},
+    {"Coming soon, only manual bypassing rn", "General"},
+    {"Coming soon, only manual bypassing rn", "General"},
+    {"Coming soon, only manual bypassing rn", "General"},
+    {"Coming soon, only manual bypassing rn", "General"},
+    {"Coming soon, only manual bypassing rn", "General"},
+    {"Coming soon, only manual bypassing rn", "General"},
+    {"Coming soon, only manual bypassing rn", "General"},
 
     -- Racism Insults
-    {"1.", "Racism"},
-    {"2.", "Racism"},
-    {"3.", "Racism"},
-    {"4.", "Racism"},
-    {"5.", "Racism"},
-    {"6.", "Racism"},
-    {"7.", "Racism"},
-    {"8.", "Racism"},
+    {"Coming soon, only manual bypassing rn", "Racism"},
+    {"Coming soon, only manual bypassing rn", "Racism"},
+    {"Coming soon, only manual bypassing rn", "Racism"},
+    {"Coming soon, only manual bypassing rn", "Racism"},
+    {"Coming soon, only manual bypassing rn", "Racism"},
+    {"Coming soon, only manual bypassing rn", "Racism"},
+    {"Coming soon, only manual bypassing rn", "Racism"},
+    {"Coming soon, only manual bypassing rn", "Racism"},
 
     -- Homophobic Insults
-    {"You're so scared of being wrong, you can't face the truth.", "Homophobic"},
-    {"2.", "Homophobic"},
-    {"3.", "Homophobic"},
-    {"4.", "Homophobic"},
-    {"5.", "Homophobic"},
-    {"6.", "Homophobic"},
-    {"7.", "Homophobic"},
-    {"8.", "Homophobic"},
+    {"Coming soon, only manual bypassing rn", "Homophobic"},
+    {"Coming soon, only manual bypassing rn", "Homophobic"},
+    {"Coming soon, only manual bypassing rn", "Homophobic"},
+    {"Coming soon, only manual bypassing rn", "Homophobic"},
+    {"Coming soon, only manual bypassing rn", "Homophobic"},
+    {"Coming soon, only manual bypassing rn", "Homophobic"},
+    {"Coming soon, only manual bypassing rn", "Homophobic"},
+    {"Coming soon, only manual bypassing rn", "Homophobic"},
 
     -- Sex Insults
-    {"Your sex appeal is equal to a wet mop.", "Sex"},
-    {"The only thing you’re good at is being a disappointment.", "Sex"},
-    {"Your existence is a testament to failure and mediocrity.", "Sex"},
-    {"4.", "Sex"},
-    {"5.", "Sex"},
-    {"6.", "Sex"},
-    {"7.", "Sex"},
-    {"8.", "Sex"},
+    {"Coming soon, only manual bypassing rn", "Sex"},
+    {"Coming soon, only manual bypassing rn", "Sex"},
+    {"Coming soon, only manual bypassing rn", "Sex"},
+    {"Coming soon, only manual bypassing rn", "Sex"},
+    {"Coming soon, only manual bypassing rn", "Sex"},
+    {"Coming soon, only manual bypassing rn", "Sex"},
+    {"Coming soon, only manual bypassing rn", "Sex"},
+    {"Coming soon, only manual bypassing rn", "Sex"},
 
     -- Other Insults
-    {"You’re like a cloud. When you disappear, it’s a good day.", "Other"},
-    {"2.", "Other"},
-    {"3.", "Other"},
-    {"4.", "Other"},
-    {"5.", "Other"},
-    {"6.", "Other"},
-    {"7.", "Other"},
-    {"8.", "Other"},
+    {"Coming soon, only manual bypassing rn", "Other"},
+    {"Coming soon, only manual bypassing rn", "Other"},
+    {"Coming soon, only manual bypassing rn", "Other"},
+    {"Coming soon, only manual bypassing rn", "Other"},
+    {"Coming soon, only manual bypassing rn", "Other"},
+    {"Coming soon, only manual bypassing rn", "Other"},
+    {"Coming soon, only manual bypassing rn", "Other"},
+    {"Coming soon, only manual bypassing rn", "Other"},
 }
-
-
 
 -- Blacklisted words
 local blacklistedWords = {
