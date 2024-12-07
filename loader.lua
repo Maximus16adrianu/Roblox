@@ -161,7 +161,7 @@ local requestCooldown = 5
 -- Background Sound
 local backgroundSound = Instance.new("Sound")
 backgroundSound.SoundId = "rbxassetid://1837282067"
-backgroundSound.Volume = 2.0
+backgroundSound.Volume = 0.5
 backgroundSound.Looped = true
 backgroundSound.Parent = game:GetService("Workspace")
 backgroundSound:Play()
@@ -231,7 +231,7 @@ SubmitButton.MouseButton1Click:Connect(function()
         -- Play login sound
         local loginSound = Instance.new("Sound")
         loginSound.SoundId = "rbxassetid://1000294392"
-        loginSound.Volume = 10.0
+        loginSound.Volume = 1.0
         loginSound.Parent = game:GetService("Workspace")
         loginSound:Play()
         loginSound.Ended:Connect(function()
