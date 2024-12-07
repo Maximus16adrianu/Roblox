@@ -176,11 +176,12 @@ local function stringSimilarity(str1, str2)
     str1, str2 = string.lower(str1), string.lower(str2)
     
     -- Handle letter substitutions (l3tt3r => letter)
-    local substitutions = {
-        ['0'] = 'o', ['1'] = 'i', ['3'] = 'e', ['4'] = 'a',
-        ['5'] = 's', ['7'] = 't', ['@'] = 'a', ['$'] = 's'
-    }
-    
+local substitutions = {
+    ['0'] = 'o', ['1'] = 'i', ['3'] = 'e', ['4'] = 'a',
+    ['5'] = 's', ['7'] = 't', ['@'] = 'a', ['$'] = 's',
+    ['8'] = 'b', ['9'] = 'g', ['*'] = 'x', ['&'] = 'a'
+}
+
     for k, v in pairs(substitutions) do
         str1 = string.gsub(str1, k, v)
         str2 = string.gsub(str2, k, v)
