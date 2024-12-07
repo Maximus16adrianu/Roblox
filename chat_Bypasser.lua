@@ -101,6 +101,7 @@ local blacklistedWords = {
     "burn all nig",
     "kys retard",
     "i think i",
+    "love"
 }
 
 -- Function to create popup
@@ -150,7 +151,7 @@ local function showPopup(word, reasonForNotBypassing)
     reasonForNotBypassingText.Position = UDim2.new(0, 0, 0.66, 0)  -- Positioned below the wordText
     reasonForNotBypassingText.Size = UDim2.new(1, 0, 0.33, 0)  -- One third of the height
     reasonForNotBypassingText.Font = Enum.Font.Gotham
-    reasonForNotBypassingText.Text = reasonForNotBypassing or "[BETA] Word blocked by filter."
+    reasonForNotBypassingText.Text = reasonForNotBypassing or "[BETA] Anti tagging."
     reasonForNotBypassingText.TextColor3 = Color3.fromRGB(255, 255, 255)
     reasonForNotBypassingText.TextSize = 14
     reasonForNotBypassingText.TextXAlignment = Enum.TextXAlignment.Center
@@ -471,7 +472,7 @@ local function randomsmt(msg)
     local tagged = filteredMessage ~= msg
 
     if tagged then
-            showPopup(msg, "[BETA] Anti tagging")
+            showPopup(msg, "[BETA] Word blocked by filter.")
     else
         if TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService then
             ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents").SayMessageRequest:FireServer(msg, "All")
