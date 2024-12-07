@@ -15,47 +15,105 @@ local CloseButton = Instance.new("TextButton")
 local SpeedSlider = Instance.new("Frame")
 local SliderButton = Instance.new("TextButton")
 local SpeedLabel = Instance.new("TextLabel")
+local KeybindInput = Instance.new("TextBox")  -- For the fly keybind
 
 ScreenGui.Parent = Player:WaitForChild("PlayerGui")
 ScreenGui.ResetOnSpawn = false
 
-Frame.Size = UDim2.new(0, 200, 0, 100)
+Frame.Size = UDim2.new(0, 250, 0, 160)  -- Adjusted to fit keybind input field
 Frame.Position = UDim2.new(0.8, 0, 0.1, 0)
 Frame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
 Frame.BorderSizePixel = 0
 Frame.Parent = ScreenGui
+Frame.AnchorPoint = Vector2.new(0.5, 0)
 
-StatusLabel.Size = UDim2.new(1, 0, 0.3, 0)
+-- Add rounded corners and shadow
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 12)
+UICorner.Parent = Frame
+
+-- Status Label
+StatusLabel.Size = UDim2.new(1, 0, 0.2, 0)
 StatusLabel.Position = UDim2.new(0, 0, 0, 0)
 StatusLabel.BackgroundTransparency = 1
 StatusLabel.Text = "Fly: OFF"
 StatusLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+StatusLabel.TextSize = 18
+StatusLabel.Font = Enum.Font.GothamBold
 StatusLabel.Parent = Frame
 
-CloseButton.Size = UDim2.new(0, 20, 0, 20)
-CloseButton.Position = UDim2.new(1, -25, 0, 5)
+-- Close Button
+CloseButton.Size = UDim2.new(0, 30, 0, 30)
+CloseButton.Position = UDim2.new(1, -35, 0, 5)
 CloseButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 CloseButton.Text = "X"
 CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseButton.TextSize = 20
+CloseButton.Font = Enum.Font.GothamBold
 CloseButton.Parent = Frame
 
+-- Add rounded corners to close button
+local CloseButtonCorner = Instance.new("UICorner")
+CloseButtonCorner.CornerRadius = UDim.new(0, 6)
+CloseButtonCorner.Parent = CloseButton
+
+-- Speed Slider
 SpeedSlider.Size = UDim2.new(0.8, 0, 0.1, 0)
-SpeedSlider.Position = UDim2.new(0.1, 0, 0.5, 0)
+SpeedSlider.Position = UDim2.new(0.1, 0, 0.3, 0)
 SpeedSlider.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 SpeedSlider.Parent = Frame
+local SpeedSliderCorner = Instance.new("UICorner")
+SpeedSliderCorner.CornerRadius = UDim.new(0, 8)
+SpeedSliderCorner.Parent = SpeedSlider
 
+-- Slider Button
 SliderButton.Size = UDim2.new(0.1, 0, 1.5, 0)
 SliderButton.Position = UDim2.new(0.5, 0, -0.25, 0)
 SliderButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 SliderButton.Text = ""
 SliderButton.Parent = SpeedSlider
 
-SpeedLabel.Size = UDim2.new(1, 0, 0.3, 0)
+local SliderButtonCorner = Instance.new("UICorner")
+SliderButtonCorner.CornerRadius = UDim.new(0, 6)
+SliderButtonCorner.Parent = SliderButton
+
+-- Speed Label
+SpeedLabel.Size = UDim2.new(1, 0, 0.2, 0)
 SpeedLabel.Position = UDim2.new(0, 0, 0.7, 0)
 SpeedLabel.BackgroundTransparency = 1
 SpeedLabel.Text = "Speed: 50"
 SpeedLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+SpeedLabel.TextSize = 16
+SpeedLabel.Font = Enum.Font.Gotham
 SpeedLabel.Parent = Frame
+
+-- Keybind Input (TextBox)
+KeybindInput.Size = UDim2.new(0.8, 0, 0.2, 0)
+KeybindInput.Position = UDim2.new(0.1, 0, 0.9, 0)
+KeybindInput.BackgroundColor3 = Color3.new(0.137255, 0.125490, 0.125490)
+KeybindInput.TextColor3 = Color3.new(0.709804, 0.678431, 0.678431)
+KeybindInput.TextSize = 14
+KeybindInput.Font = Enum.Font.Gotham
+KeybindInput.PlaceholderText = "Press a key for fly"
+KeybindInput.ClearTextOnFocus = false
+KeybindInput.Parent = Frame
+
+-- Hover Effects
+CloseButton.MouseEnter:Connect(function()
+    CloseButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+end)
+
+CloseButton.MouseLeave:Connect(function()
+    CloseButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+end)
+
+SliderButton.MouseEnter:Connect(function()
+    SliderButton.BackgroundColor3 = Color3.fromRGB(220, 220, 220)
+end)
+
+SliderButton.MouseLeave:Connect(function()
+    SliderButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+end)
 
 -- Variables
 local Flying = false
@@ -64,6 +122,7 @@ local DragStart
 local StartPos
 local SliderDragging = false
 local CurrentAnim
+local FlyKeybind = Enum.KeyCode.F  -- Default fly keybind
 
 -- Functions
 local function ApplyVelocity(Direction)
@@ -144,7 +203,7 @@ end
 
 -- Event Connections
 UserInputService.InputBegan:Connect(function(Input, GameProcessed)
-    if Input.KeyCode == Enum.KeyCode.F and not GameProcessed then
+    if Input.KeyCode == FlyKeybind and not GameProcessed then
         Flying = not Flying
         StatusLabel.Text = Flying and "Fly: ON" or "Fly: OFF"
         
@@ -162,6 +221,24 @@ UserInputService.InputBegan:Connect(function(Input, GameProcessed)
     end
 end)
 
+-- Keybind change handler
+KeybindInput.Focused:Connect(function()
+    KeybindInput.Text = ""  -- Clear placeholder text when focused
+end)
+
+KeybindInput.FocusLost:Connect(function()
+    if KeybindInput.Text and #KeybindInput.Text > 0 then
+        local NewKey = Enum.KeyCode[KeybindInput.Text:upper()]
+        if NewKey then
+            FlyKeybind = NewKey
+            KeybindInput.Text = "Fly key: " .. FlyKeybind.Name
+        else
+            KeybindInput.Text = "Invalid key"
+        end
+    else
+        KeybindInput.Text = "Press a key for fly"
+    end
+end)
 
 local function UpdateSlider(Input)
     if SliderDragging then
