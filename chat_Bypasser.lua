@@ -101,7 +101,9 @@ local blacklistedWords = {
     "burn all nig",
     "kys retard",
     "i think i",
-    "love"
+    "love",
+    "pull down",
+    "children"
 }
 
 -- Function to create popup
