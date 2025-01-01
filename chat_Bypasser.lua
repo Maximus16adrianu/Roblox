@@ -1,3 +1,6 @@
+--Bypasses last updated 01.01.2025
+
+
 local ScreenGui = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
 local TabFrame = Instance.new("Frame")
@@ -103,7 +106,8 @@ local blacklistedWords = {
     "i think i",
     "love",
     "pull down",
-    "children"
+    "kys nigger",
+    "kys bitch"
 }
 
 -- Function to create popup
