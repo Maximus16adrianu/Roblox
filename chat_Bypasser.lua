@@ -1,4 +1,5 @@
 --Bypasses last updated 01.01.2025
+-- As of 09.02.2025 the script is mostly patched, update is work in progress
 
 
 local ScreenGui = Instance.new("ScreenGui")
