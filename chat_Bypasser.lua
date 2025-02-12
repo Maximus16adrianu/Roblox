@@ -1,3 +1,4 @@
+
 --Bypasses last updated 01.01.2025
 
 local Players = game:GetService("Players")
@@ -44,10 +45,8 @@ end
 
 -- Configuration: Message Content (Easily editable)
 local messages = {
-    "Roblox has been updating the chat filters a lot,",
-    "that's why some bypasses don't work or flag from time to time.",
-    "Check the GitHub for updates.",
-    "USE AT YOUR OWN RISK!"
+    "Script is currently patched",
+    "do NOT use"
 }
 
 -- Display the messages dynamically
@@ -56,7 +55,7 @@ for _, messageText in ipairs(messages) do
 end
 
 -- Auto-remove the message after 5 seconds
-wait(7)
+wait(0)
 screenGui:Destroy()
 
 
@@ -491,7 +490,7 @@ local charMap = {
     ["c"] = "ꞓ",    
     ["d"] = "ď",     
     ["e"] = "е",    
-    ["f"] = "ғ",     
+    ["f"] = "ꜰ",     
     ["g"] = "ɡ",    
     ["h"] = "һ",    
     ["i"] = "і",   
